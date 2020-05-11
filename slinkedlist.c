@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <assert.h>
 
 typedef struct slinkedlist* type_Node;
  
@@ -67,6 +68,7 @@ int main(void)
 type_Node createNode(void)
 {
     type_Node temp = (type_Node)(malloc(sizeof(struct slinkedlist)));
+    assert(temp);   // failed to allocate memory. Abort
     if (temp == NULL) {
         perror("failed to allocate memory.\n");
         return NULL;
@@ -138,6 +140,7 @@ void delete(int d)
         if (d == temp->d) {
             current->pNext = temp->pNext; // link the previous to the next
             free(temp);
+            assert(temp);   // if the node still exist, failure. abort
             nodecnt--;
             printf("deleted node having %d\n", d);
             return;
@@ -159,7 +162,8 @@ int cleanupmem(void)
     while (temp)    // start from the head
     {
         current = temp->pNext; // advance the current to the next
-        free(temp);     // free the head current one 
+        free(temp);     // free the head current one
+        assert(temp);   // if the node still exist, failure. abort
         temp = current;    // now the current node becomes the head
         n++;
     }
