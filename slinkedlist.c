@@ -11,7 +11,9 @@ typedef struct slinkedlist* type_Node;
  
 _Bool append(int d);
 _Bool insert_d_infront_n(int v, int d);
-void delete(int d);
+void delete(int d); // delete the node having d
+int reverseList(void);
+int showlist(void);
 int cleanupmem(void);
 
 type_Node  createNode(void);
@@ -43,15 +45,17 @@ int main(void)
 
     printf("\n"); 
     printf("my singly linked list:\n");
-    
-    temp = head;
-    while (temp)
+    showlist();    
+    printf("\n"); 
+
+    if (reverseList() > 0)
     {
-        printf(" %d", temp->d);
-        temp = temp->pNext;
+        printf("my reversed singly linked list:\n");
+        showlist(); 
     }
     printf("\n"); 
-            
+     
+    printf("clean up ...\n");        
     n = cleanupmem(); 
     if (n>0)
         printf("List of %d nodes removed. Memory released\n", n);  
@@ -161,3 +165,47 @@ int cleanupmem(void)
     }
     return n;
 }
+
+
+int reverseList(void)
+{
+    type_Node temp = head;
+    type_Node current = head;
+    type_Node target = NULL;
+    
+    if(head == NULL)
+        return -1;  // empty list
+    if (head->pNext == NULL)
+        return 0;   // signle node
+        
+    while(current)
+    {
+        temp = current; // 1. save the current
+        current = current->pNext;   // 2. advance the current
+        temp->pNext = target;   // 3. NULL in the first loop
+        target = temp;  // 4. target is the head in the first loop
+        // from the second loop on, all pointers traverse toward the end
+    }
+    head = target;
+    
+    return 1;
+}
+
+
+int showlist(void)
+{
+    int n = 0; 
+    
+    type_Node temp = head;
+    if (temp == NULL)
+        return 0;
+    while (temp)
+    {
+        printf(" %d", temp->d);
+        temp = temp->pNext;
+        n++;
+    }
+    printf("\n"); 
+    return n;
+}
+
