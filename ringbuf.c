@@ -1,6 +1,6 @@
 /** Author: Tom Hua
 	ringbuf.c
-	FIFO circular overwritable, LIFO
+	FIFO circular overwritable, LIFO not overwritable
 **/
 
 #include <stdio.h>
@@ -63,6 +63,11 @@ int main(void)
 	{
 		printf(" %d", rb[i]);
 	}
+	printf("\n");
+	
+	push(8);
+	printf(" %d", rb[0]);
+	
 	printf("\nLIFO pop test: \n");
 	int ret = -1;
 	int d = -1;
