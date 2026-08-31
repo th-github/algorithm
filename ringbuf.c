@@ -142,7 +142,7 @@ void iWr(int d)
     
 
     rb[nRear++] = d;
-    if (nRear > (BUFSIZE-1))	// has reaqched beyond tyhe end of buffer
+    if (nRear > (BUFSIZE-1))	// has reached beyond the end of buffer
         nRear = 0;
 	printf(" nSpaceAvail: %d, nFront: %d, Rear: %d\n", nSpaceAvail, nFront, nRear);    	       
 }
